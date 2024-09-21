@@ -395,7 +395,7 @@ const Edit = () => {
   };
 
   const handleError = (err) => {
-    // console.log(isChecked)
+    console.log("isChecked")
     // if (isChecked) {
 
     //   fetchProducts(766576577878')
@@ -1051,7 +1051,7 @@ const handleReturn = ()=>{
           <form>
 
             <div className="flex flex-nowrap bg-gray-200 px-3  text-center rounded-md space-x-2 mb-2">
-              <BarcodeReader onError={handleError} onScan={handleScanproduct} />
+              <BarcodeReader onError={handleError} onScan={handleScan} />
               
               {/* <div className="mb-2 flex justify-center items-center text-center">
                 <button

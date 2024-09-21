@@ -29,9 +29,44 @@ const Accounts = () => {
   const error = useSelector((state) => state.orders.error);
   const orders = useSelector((state) => state.orders.orders);
 
+  const [page, setPage] = useState(1); // Track the current page
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+
   useEffect(() => {
-    dispatch(fetchOrders());
+    fetchMoreOrders();
   }, [dispatch]);
+
+  // Infinite scroll: fetch more orders when reaching the bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoading) {
+        return;
+      }
+      // Fetch more orders if at the bottom
+      setPage((prevPage) => prevPage + 1);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLoading]);
+
+  // Function to fetch more orders
+  const fetchMoreOrders = async () => {
+    setIsLoading(true);
+    try {
+      await dispatch(fetchOrders({ page }));
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (page > 1) {
+      fetchMoreOrders();
+    }
+  }, [page]);
 
   useEffect(() => {
     if (orders.length > 0) {
@@ -488,6 +523,8 @@ const Accounts = () => {
         {selectedView === 'Imported' && renderOrdersTable(importedData)}
       </div>
     </div>
+
+    
   );
 };
 
