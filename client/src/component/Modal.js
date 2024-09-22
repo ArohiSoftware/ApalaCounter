@@ -5,7 +5,7 @@ import { fetchCategories } from '../Redux/Category/categoriesSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // 
+import 'react-quill/dist/quill.snow.css'; 
 
 const Modal = ({ show, onClose, product }) => {
   const dispatch = useDispatch();
@@ -136,8 +136,6 @@ const Modal = ({ show, onClose, product }) => {
              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                
              <div>
- 
-
 </div>
                 {/* Category Code here */}    
              </div>
